@@ -63,7 +63,7 @@ data<-data%>%filter(Status=="Live")
 data<-data%>%filter(Age=="A")
 # filter out values where the total distance traveled in a given day is less than 100m 
 # gps error rate is typically ~30m 
-# to account for error in every cardinal direction we picked 75m as a reasonable distance
+# to account for error in every cardinal direction we picked 100m as a reasonable distance
 data<-data%>%filter(total_dist>100)
 
 # manipulate stage so the intercept is 'Pre-hunt' 

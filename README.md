@@ -1,4 +1,3 @@
-# ![Capture](https://github.com/nickgulotta77/GA_Webb_Male_Survival/assets/56907107/87871fb3-84ae-4b79-b0d5-3494f132b5d9)                
 
 ## The role of human hunters and natural predators in shaping the selection of behavioral types in male wild turkeys
 

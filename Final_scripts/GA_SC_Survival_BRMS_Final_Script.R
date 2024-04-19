@@ -99,7 +99,7 @@ data$Edge_c<-scale(data$dist_edge, scale = T, center = T)#risk-taking
 ##Univariate model used in survival analysis----
 require(brms)
 data$Dist_access_bs<-data$Dist_access_c*-1#multiple by -1 to ease interpretation
-                                                                  #now a postive log-likelihood = more risky individuals have greater survival
+                                                                  #now a positive log-odds ratio = more risky individuals have greater survival
 #1. Public Access-Risk-taking univariate model to extract BLUPs----
 #run both populations together to obtain unbiased BLUP values
 model.traits1<-brm(Dist_access_bs~ Stage*Site + Site + (1|ID),
@@ -330,9 +330,9 @@ describe_posterior(pred_ga_da_sur)
 #run both populations together to obtain unbiased BLUP values
 model.traits2<-brm(mean_speed_c~ Stage*Site + Site +  (1|ID) ,
                    data= data, family="gaussian",
-                   warmup=300, iter=10300,
-                   chains=2,thin= 10, init="random",
-                   cores = 12,
+                   warmup=300, iter=15300,
+                   chains=2,thin= 15, init="random",
+                   cores = 32,
                    seed=bayes_seed,
                    backend = "rstan",
                    control = list(adapt_delta = 0.99, max_treedepth=15)) # within chain parallelization, number of threads + number of cores should match total cores you intend to use) 
@@ -552,9 +552,9 @@ data$Open_bs<-data$Open_c*-1#mutltiply bt -1 to ease interpretation
                             #postive log-likelihood = greater survival for riskier individuals
 model.traits3<-brm(Open_bs~ Stage*Site + Site +  (1|ID) ,
                    data= data, family="gaussian",
-                   warmup=300, iter=10300,
-                   chains=2,thin= 10, init="random",
-                   cores = 12,
+                   warmup=300, iter=15300,
+                   chains=2,thin= 15, init="random",
+                   cores = 32,
                    seed=bayes_seed,
                    backend = "rstan",
                    control = list(adapt_delta = 0.99, max_treedepth=15)) # within chain parallelization, number of threads + number of cores should match total cores you intend to use) 
@@ -764,11 +764,13 @@ describe_posterior(pred_ga_da_sur)
 
 #4. Edge landcover- risk-taking univariate model to extract BLUPs----
 #run both populations together to obtain unbiased BLUP values
-model.traits4<-brm(Edge_c~ Stage*Site + Site +  (1|ID) ,
+data$Edge_bs<-data$Edge_c*-1#multiple by -1 to ease interpretation
+                            #now a positive log-odds ratio = more risky individuals have greater survival
+model.traits4<-brm(Edge_bs~ Stage*Site + Site +  (1|ID) ,
                    data= data, family="gaussian",
-                   warmup=300, iter=10300,
-                   chains=2,thin= 10, init="random",
-                   cores = 12,
+                   warmup=300, iter=15300,
+                   chains=2,thin= 15, init="random",
+                   cores = 32,
                    seed=bayes_seed,
                    backend = "rstan",
                    control = list(adapt_delta = 0.99, max_treedepth=15)) # within chain parallelization, number of threads + number of cores should match total cores you intend to use) 
